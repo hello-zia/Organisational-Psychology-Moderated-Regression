@@ -25,9 +25,10 @@ df$EmploymentLevel<-factor(df$EmploymentLevel, levels = c("Entry-Level", "Mid-Le
 sum(is.na(df))
 
 # ---------------------------Convert likert scale to numbers-------------------
+# install.packages("dplyr")
+library(dplyr)
 
-likert_responses_1 <- c("Strongly disagree", "Somewhat disagree", "Neither agree 
-                        nor disagree", "Somewhat agree", "Strongly agree")
+likert_responses_1 <- c("Strongly disagree", "Somewhat disagree", "Neither agree nor disagree", "Somewhat agree", "Strongly agree")
 numeric_values_1 <- c(1, 2, 3, 4, 5)
 
 df <- df %>%
@@ -96,22 +97,27 @@ print(cor_matrix)
 
 # -------------------Moderated Regression--------------------------------
 # Download PROCESS macro at https://haskayne.ucalgary.ca/CCRAM/resource-hub
+# Model 1. Predictor: Stress, Outcome: Burnout, Moderator: Psycap
 process(data = df, y = "burnout", x = "stress", w = "psycap", 
         model = 1, center = 2, moments = 1, jn = 1, 
         modelbt = 1, boot = 10000, seed = 654321) 
 
+# Model 2. Predictor: Stress, Outcome: Burnout, Moderator: Self-efficacy
 process(data = df, y = "burnout", x = "stress", w = "selfefficacy", 
         model = 1, center = 2, moments = 1, jn = 1, 
         modelbt = 1, boot = 10000, seed = 654321)
 
+# Model 3. Predictor: Stress, Outcome: Burnout, Moderator: Optimism
 process(data = df, y = "burnout", x = "stress", w = "optimism", 
         model = 1, center = 2, moments = 1, jn = 1, 
         modelbt = 1, boot = 10000, seed = 654321)
 
+# Model 4. Predictor: Stress, Outcome: Burnout, Moderator: Hope
 process(data = df, y = "burnout", x = "stress", w = "hope", 
         model = 1, center = 2, moments = 1, jn = 1, 
         modelbt = 1, boot = 10000, seed = 654321)
 
+# Model 5. Predictor: Stress, Outcome: Burnout, Moderator: Resilience
 process(data = df, y = "burnout", x = "stress", w = "resilience", 
         model = 1, center = 2, moments = 1, jn = 1, 
         modelbt = 1, boot = 10000, seed = 654321)
